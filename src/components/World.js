@@ -32,9 +32,12 @@ function WorldMap({ data }) {
       .data(data.features)
       .join("path")
       .on("click", (feature) => {
+        debugger;
         setSelectedCountry(selectedCountry === feature ? null : feature);
       })
       .attr("class", "country")
+      .attr("fill", "white")
+      .attr("stroke", "black")
       .transition()
       .attr("d", (feature) => pathGenerator(feature));
   }, [data, dimension, selectedCountry]);
