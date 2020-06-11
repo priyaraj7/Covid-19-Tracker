@@ -4,12 +4,20 @@ import useResizeObserver from "./useResizeObserver";
 
 //import { feature } from "topojson";
 
-function WorldMap({ data }) {
+function WorldMap({ data, countrydata }) {
   const svgRef = useRef();
   const wrappedRef = useRef();
   const dimension = useResizeObserver(wrappedRef);
   const [selectedCountry, setSelectedCountry] = useState(null);
 
+  const mapApi = data.features.map((mapCountry) => {
+    const countryCode = mapCountry.properties.iso_a3;
+    const covid = countrydata.find((cd) => {
+      return cd.countryInfo.iso3 === countryCode;
+    });
+    mapCountry.properties.covid = covid;
+    return { ...mapCountry, properties: { ...mapCountry.properties, covid } };
+  });
   useEffect(() => {
     const svg = select(svgRef.current);
 
@@ -32,7 +40,6 @@ function WorldMap({ data }) {
       .data(data.features)
       .join("path")
       .on("click", (feature) => {
-        debugger;
         setSelectedCountry(selectedCountry === feature ? null : feature);
       })
       .attr("class", "country")
@@ -40,7 +47,7 @@ function WorldMap({ data }) {
       .attr("stroke", "black")
       .transition()
       .attr("d", (feature) => pathGenerator(feature));
-  }, [data, dimension, selectedCountry]);
+  }, [data, mapApi, dimension, selectedCountry]);
   return (
     <div ref={wrappedRef} style={{ marginBottom: "2rem" }}>
       <svg ref={svgRef}></svg>

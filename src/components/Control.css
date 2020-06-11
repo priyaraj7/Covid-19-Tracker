@@ -1,0 +1,12 @@
+svg {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+
+svg .country:hover {
+  stroke: blue;
+  stroke-width: 1px;
+  cursor: pointer;
+  background-color: aliceblue;
+}

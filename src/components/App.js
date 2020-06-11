@@ -1,18 +1,25 @@
 import React from "react";
+import { Navbar } from "react-bootstrap";
+import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-import WorldMap from "./World";
-import data from "./GeoChart.world.geo.json";
-import Apis from "./Api";
+import Control from "./Control";
 
 const App = () => {
-  //const [property]
   return (
-    <>
-      <Apis />
-      {/* <h2>World Map with d3-geo</h2> */}
-      {console.log(data)}
-      {/* <WorldMap data={data} /> */}
-    </>
+    <Router>
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        bg="dark"
+        variant="dark"
+        sticky="top"
+      >
+        <Navbar.Brand href="/">Home</Navbar.Brand>
+        <Navbar.Brand href="/map">map</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      </Navbar>
+      <Control />;
+    </Router>
   );
 };
 
