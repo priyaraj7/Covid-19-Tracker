@@ -18,7 +18,7 @@ export default function Control() {
       .then((response) => {
         setGlobaladata(response[0].data);
         setContrydata(response[1].data);
-        console.log(response[1].data);
+        //console.log(response[1].data);
       })
       .catch((error) => {
         console.log(error);
