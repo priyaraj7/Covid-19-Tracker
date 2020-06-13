@@ -23,11 +23,11 @@ function WorldMap({ data, countrydata }) {
     const svg = select(svgRef.current);
 
     const minInfection = min(mapApi, (feature) => {
-      if (!feature.properties.covid) return Number.POSITIVE_INFINITY;
+      if (!feature.properties.covid) return undefined;
       return feature.properties.covid.active;
     });
     const maxInfection = max(mapApi, (feature) => {
-      if (!feature.properties.covid) return 0;
+      if (!feature.properties.covid) return undefined;
       return feature.properties.covid.active;
     });
     console.log(minInfection);
@@ -35,7 +35,7 @@ function WorldMap({ data, countrydata }) {
 
     const colorScale = scaleLinear()
       .domain([minInfection, maxInfection])
-      .range(["#fff", "red"]);
+      .range(["#ffe6e6", "#FF0000"]);
     //use resize dimension
     //but fall back to getBoundingClientRect, if no dimension yet.
     const { width, height } =
@@ -49,6 +49,7 @@ function WorldMap({ data, countrydata }) {
     // takes geojson data,
     // transforms that into the d attribute of a path element
     const pathGenerator = geoPath().projection(projection);
+
     // render each country
     svg
       .selectAll(".country")
@@ -67,7 +68,25 @@ function WorldMap({ data, countrydata }) {
       .attr("stroke", "black")
       .transition()
       .attr("d", (feature) => pathGenerator(feature));
+
+    // render text
+    svg
+      .selectAll(".label")
+      .data([selectedCountry])
+      .join("text")
+      .attr("class", "label")
+      .text((feature) => {
+        if (feature && feature.properties && feature.properties.covid)
+          return (
+            `active cases: ${feature.properties.covid.active}`,
+            `active cases: ${feature.properties.covid.active}`
+          );
+        return "";
+      })
+      .attr("x", 10)
+      .attr("y", 25);
   }, [data, mapApi, dimension, selectedCountry]);
+
   return (
     <div ref={wrappedRef} style={{ marginBottom: "2rem" }}>
       <svg ref={svgRef}></svg>

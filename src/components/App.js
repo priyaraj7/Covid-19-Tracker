@@ -18,7 +18,7 @@ const App = () => {
         <Navbar.Brand href="/map">map</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       </Navbar>
-      <Control />;
+      <Control />
     </Router>
   );
 };
