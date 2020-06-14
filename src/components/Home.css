@@ -26,3 +26,7 @@
   position: relative;
   /* margin-left: -5px; */
 }
+
+.header {
+  font-size: larger;
+}

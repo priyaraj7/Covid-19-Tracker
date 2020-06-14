@@ -10,19 +10,20 @@ export default function Control() {
   const [globaldata, setGlobaladata] = useState([]);
   const [countrydata, setContrydata] = useState([]);
   const [usadata, setUsadata] = useState([]);
+  const [searchCountry, setSearchCountry] = useState("");
+  const [searchUsaState, setSearchUsaState] = useState("");
+
   useEffect(() => {
     axios
       .all([
         axios.get("https://corona.lmao.ninja/v2/all"),
         axios.get("https://corona.lmao.ninja/v2/countries?yesterday&sort"),
         axios.get("https://corona.lmao.ninja/v2/states?sort&yesterday"),
-        // axios.get("https://corona.lmao.ninja/v2/states?sort&yesterday"),
       ])
       .then((response) => {
         setGlobaladata(response[0].data);
         setContrydata(response[1].data);
         setUsadata(response[2].data);
-        //console.log(response[1].data);
       })
       .catch((error) => {
         console.log(error);
@@ -44,6 +45,10 @@ export default function Control() {
             countrydata={countrydata}
             globaldata={globaldata}
             usadata={usadata}
+            searchCountry={searchCountry}
+            setSearchCountry={setSearchCountry}
+            searchUsaState={searchUsaState}
+            setSearchUsaState={setSearchUsaState}
           />
         </Route>
         <Route path="/map">

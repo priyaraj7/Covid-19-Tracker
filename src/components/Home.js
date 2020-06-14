@@ -1,18 +1,27 @@
 import React from "react";
 import "./Home.css";
-import { Table, Card, Form } from "react-bootstrap";
+import { Table, Card, Form, Col } from "react-bootstrap";
 
-export default function HomePage({ countrydata, globaldata, usadata }) {
+export default function HomePage({
+  countrydata,
+  globaldata,
+  usadata,
+  searchCountry,
+  setSearchCountry,
+  searchUsaState,
+  setSearchUsaState,
+}) {
   const date = new Date(parseInt(globaldata.updated));
   const lastupdated = date.toString();
-  // let date = new Date(globaldata.updated);
-  // let lastupdated =
-  //   parseInt(date.getMonth() + 1) +
-  //   "-" +
-  //   date.getDate() +
-  //   "-" +
-  //   date.getFullYear();
-  console.log({ usadata });
+
+  // console.log(` Number of countries: ${countrydata.length}`);
+  const filterCountry = countrydata.filter((item) =>
+    item.country.includes(searchCountry)
+  );
+
+  const filterUsaState = usadata.filter((item) =>
+    item.state.includes(searchUsaState)
+  );
 
   return (
     <>
@@ -21,7 +30,7 @@ export default function HomePage({ countrydata, globaldata, usadata }) {
           style={{ width: "16rem", backgroundColor: "#343a40", color: "white" }}
         >
           <Card.Body>
-            <Card.Header>Global Data</Card.Header>
+            <Card.Header className="header">Global Data</Card.Header>
             <Card.Text>Total Cases: {globaldata.cases}</Card.Text>
             <Card.Text>Recovered: {globaldata.recovered}</Card.Text>
             <Card.Text>Deaths: {globaldata.deaths}</Card.Text>
@@ -37,21 +46,28 @@ export default function HomePage({ countrydata, globaldata, usadata }) {
           </Card.Footer>
         </Card>
       </div>
-
+      {/* Main page */}
       <div className="main">
         {/* CountryWise data */}
-        <h1>countrydata</h1>
         <div className="data">
-          <Form.Group>
-            <Form.Control as="select" size="lg">
-              {countrydata.map((country, index) => (
-                <option key={index}>{country.country}</option>
-              ))}
-            </Form.Control>
-          </Form.Group>
+          <h1>World COVID-19 Stats</h1>
+          <Form>
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Control
+                  type="text"
+                  placeholder="Search a Country"
+                  onChange={(event) => setSearchCountry(event.target.value)}
+                />
+              </Form.Group>
+            </Form.Row>
+          </Form>
+          <br />
+
           <Table striped bordered hover responsive>
             <thead>
               <tr>
+                <th>#</th>
                 <th>Name</th>
                 <th>Cases</th>
                 <th>Active</th>
@@ -63,34 +79,43 @@ export default function HomePage({ countrydata, globaldata, usadata }) {
               </tr>
             </thead>
             <tbody>
-              {countrydata.map((country, index) => (
-                <tr key={index}>
-                  <td>{country.country}</td>
-                  <td>{country.cases}</td>
-                  <td>{country.active}</td>
-                  <td>{country.recovered}</td>
-                  <td>{country.deaths}</td>
+              {(searchCountry === "" ? countrydata : filterCountry).map(
+                (country, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{country.country}</td>
+                    <td>{country.cases}</td>
+                    <td>{country.active}</td>
+                    <td>{country.recovered}</td>
+                    <td>{country.deaths}</td>
 
-                  <td>{country.todayCases}</td>
-                  <td>{country.todayDeaths}</td>
-                </tr>
-              ))}
+                    <td>{country.todayCases}</td>
+                    <td>{country.todayDeaths}</td>
+                  </tr>
+                )
+              )}
             </tbody>
           </Table>
         </div>
         {/* USA API */}
-        <h1>usadata</h1>
         <div className="data">
-          <Form.Group>
-            <Form.Control as="select" size="lg">
-              {usadata.map((country, index) => (
-                <option key={index}>{country.country}</option>
-              ))}
-            </Form.Control>
-          </Form.Group>
+          <h1>USA COVID-19 Stats</h1>
+          <Form>
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Control
+                  type="text"
+                  placeholder="Search State"
+                  onChange={(event) => setSearchUsaState(event.target.value)}
+                />
+              </Form.Group>
+            </Form.Row>
+          </Form>
+          <br />
           <Table striped bordered hover responsive>
             <thead>
               <tr>
+                <th>#</th>
                 <th>Name</th>
                 <th>Cases</th>
                 <th>Active</th>
@@ -103,18 +128,21 @@ export default function HomePage({ countrydata, globaldata, usadata }) {
             </thead>
 
             <tbody>
-              {usadata.map((usaState, index) => (
-                <tr key={index}>
-                  <td>{usaState.state}</td>
-                  <td>{usaState.cases}</td>
-                  <td>{usaState.active}</td>
-                  <td>{usaState.cases - usaState.active}</td>
-                  <td>{usaState.deaths}</td>
+              {(searchUsaState === "" ? usadata : filterUsaState).map(
+                (usaState, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{usaState.state}</td>
+                    <td>{usaState.cases}</td>
+                    <td>{usaState.active}</td>
+                    <td>{usaState.cases - usaState.active}</td>
+                    <td>{usaState.deaths}</td>
 
-                  <td>{usaState.todayCases}</td>
-                  <td>{usaState.todayDeaths}</td>
-                </tr>
-              ))}
+                    <td>{usaState.todayCases}</td>
+                    <td>{usaState.todayDeaths}</td>
+                  </tr>
+                )
+              )}
             </tbody>
           </Table>
         </div>
@@ -122,5 +150,3 @@ export default function HomePage({ countrydata, globaldata, usadata }) {
     </>
   );
 }
-
-//https://www.w3schools.com/howto/howto_css_fixed_sidebar.asp
