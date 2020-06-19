@@ -1,75 +1,27 @@
-.sidebar {
-  height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 300px; /* Set the width of the sidebar */
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
-  left: 0;
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding: 30px;
-  padding-top: 70px;
-}
-
-.main {
-  margin-left: 300px; /* Same as the width of the sidebar */
-  padding-left: 10px;
+/* Home.js */
+.row {
   padding-top: 15px;
+}
+h1 {
+  text-align: center;
 }
 .data {
   height: 440px;
-  width: 900px;
+  width: 100%;
   border-radius: 0.25rem;
   border: 1px solid rgba(0, 0, 0, 0.125);
-  padding: 30px;
+  /* padding: 30px; */
   padding-top: 0;
   overflow: auto;
   float: left;
   position: relative;
-  /* padding-bottom: 40px; */
+  padding-bottom: 40px;
   margin-bottom: 10px;
 }
 
-.header {
-  font-size: larger;
-}
-
-.sticky {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  background-color: white;
-}
-/* 
-.stickyHead thead {
-  position: sticky;
-  top: 0px;
-  background: grey;
+/* its not working Home.js */
+/* .sticky {
+  position: fixed; Fixed Sidebar (stay in place on scroll)
+  z-index: 1; Stay on top
+  top: 0; Stay at the top
 } */
-
-tr {
-  position: sticky;
-  top: 0px;
-}
-
-.cases {
-  color: rgb(207, 12, 224);
-}
-.recovered {
-  color: rgb(11, 185, 34);
-}
-
-.deaths {
-  color: rgb(223, 15, 15);
-}
-.critical {
-  color: rgb(235, 129, 8);
-}
-.active {
-  color: rgb(17, 20, 230);
-}
-.new-cases {
-  color: rgb(12, 184, 155);
-}
-.new-deaths {
-  color: rgb(243, 12, 12);
-}

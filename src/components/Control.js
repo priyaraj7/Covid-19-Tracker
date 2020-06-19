@@ -1,9 +1,9 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
-import HomePage from "./Home";
+import loadData from "./Api";
 import "./Control.css";
 import data from "./GeoChart.world.geo.json";
+import HomePage from "./Home";
 import WorldMap from "./World";
 
 export default function Control() {
@@ -12,30 +12,29 @@ export default function Control() {
   const [usadata, setUsadata] = useState([]);
   const [searchCountry, setSearchCountry] = useState("");
   const [searchUsaState, setSearchUsaState] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadingError, setLoadingError] = useState(false);
 
   useEffect(() => {
-    axios
-      .all([
-        axios.get("https://corona.lmao.ninja/v2/all"),
-        axios.get("https://corona.lmao.ninja/v2/countries?yesterday&sort"),
-        axios.get("https://corona.lmao.ninja/v2/states?sort&yesterday"),
-      ])
-      .then((response) => {
-        setGlobaladata(response[0].data);
-        setContrydata(response[1].data);
-        setUsadata(response[2].data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    (async () => {
+      const apiResult = await loadData();
+      if (apiResult) {
+        setContrydata(apiResult.countryData);
+        setUsadata(apiResult.usaData);
+        setGlobaladata(apiResult.globalData);
+        setIsLoading(false);
+      } else {
+        setLoadingError(true);
+        console.log("Error loading data");
+      }
+    })();
   }, []);
 
-  if (
-    countrydata.length === 0 ||
-    globaldata.length === 0 ||
-    usadata.length === 0
-  ) {
-    return <h1> Loading </h1>;
+  if (loadingError) {
+    return <h1> Error when loading data</h1>;
+  }
+  if (isLoading) {
+    return <h1> Loading... </h1>;
   }
   return (
     <>

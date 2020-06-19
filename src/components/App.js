@@ -1,8 +1,9 @@
 import React from "react";
-import { Navbar } from "react-bootstrap";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Navbar, Nav } from "react-bootstrap";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import "./App.css";
 import Control from "./Control";
+import image from "../assets/covid.png";
 
 const App = () => {
   return (
@@ -14,8 +15,25 @@ const App = () => {
         variant="dark"
         sticky="top"
       >
-        <Navbar.Brand href="/">Home</Navbar.Brand>
-        <Navbar.Brand href="/map">map</Navbar.Brand>
+        <Navbar.Brand>
+          <Link to="/">
+            <img
+              src={image}
+              width="50"
+              height="50"
+              margin-right="10px"
+              alt="logo"
+            />
+          </Link>
+          COVID-19 Dashboard
+        </Navbar.Brand>
+
+        <Nav className="ml-auto">
+          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link eventKey={2} href="/map">
+            Map
+          </Nav.Link>
+        </Nav>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       </Navbar>
       <Control />

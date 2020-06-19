@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { select, geoMercator, geoPath, min, max, scaleLinear } from "d3";
+import { select, geoMercator, geoPath, min, max, scaleLinear, event } from "d3";
 import useResizeObserver from "./useResizeObserver";
 
 function WorldMap({ data, countrydata }) {
@@ -50,6 +50,14 @@ function WorldMap({ data, countrydata }) {
     // transforms that into the d attribute of a path element
     const pathGenerator = geoPath().projection(projection);
 
+    // // tooltip
+    // var div = svg
+    //   .selectAll(".tooltip-country")
+    //   .data([selectedCountry])
+    //   .join("div")
+    //   .attr("class", "tooltip-country")
+    //   .style("opacity", 0);
+
     // render each country
     svg
       .selectAll(".country")
@@ -59,6 +67,23 @@ function WorldMap({ data, countrydata }) {
       .on("click", (feature) => {
         setSelectedCountry(selectedCountry === feature ? null : feature);
       })
+      // .on("mouseover", (d, i) => {
+      //   div
+      //     .select(".tooltip-country")
+      //     .transition()
+      //     .duration("50")
+      //     .attr("opacity", ".85");
+      //   div.transition().duration(50).style("opacity", 1);
+
+      //   div
+      //     .html("<div>Foo bar</div>")
+      //     .style("left", event.pageX + 10 + "px")
+      //     .style("top", event.pageY - 15 + "px");
+      // })
+      // .on("mouseout", (d, i) => {
+      //   select(this).transition().duration("50").attr("opacity", "1");
+      //   div.transition().duration("50").style("opacity", 0);
+      // })
       .attr("class", "country")
       .attr("fill", (feature) =>
         colorScale(
@@ -77,10 +102,7 @@ function WorldMap({ data, countrydata }) {
       .attr("class", "label")
       .text((feature) => {
         if (feature && feature.properties && feature.properties.covid)
-          return (
-            `active cases: ${feature.properties.covid.active}`,
-            `active cases: ${feature.properties.covid.active}`
-          );
+          return `active cases: ${feature.properties.covid.active}`;
         return "";
       })
       .attr("x", 10)

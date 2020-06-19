@@ -15,6 +15,7 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-sticky-table": "^5.1.4",
     "resize-observer-polyfill": "^1.5.1",
     "topojson": "^3.0.2"
   },
@@ -38,5 +39,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/react-hooks": "^3.3.0",
+    "axios-mock-adapter": "^1.18.1",
+    "react-test-renderer": "^16.13.1"
   }
 }

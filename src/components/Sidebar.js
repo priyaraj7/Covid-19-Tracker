@@ -1,4 +1,5 @@
 import React from "react";
+import "./Sidebar.css";
 import { Card } from "react-bootstrap";
 import moment from "moment";
 
@@ -6,38 +7,39 @@ const Sidebar = ({ globaldata }) => {
   let lastupdated = moment(globaldata.updated).startOf("hour").fromNow();
 
   return (
-    <div className="sidebar">
-      <Card style={{ width: "16rem" }}>
+    <div>
+      <Card>
         <Card.Body>
-          <Card.Header className="header">Global Data</Card.Header>
-
-          <Card.Text>
-            <span className="cases">Total Cases:</span> {globaldata.cases}
-          </Card.Text>
-          <Card.Text>
-            <span className="recovered">Recovered:</span> {globaldata.recovered}
-          </Card.Text>
-          <Card.Text>
-            <span className="deaths">Deaths:</span> {globaldata.deaths}
-          </Card.Text>
-          <Card.Text>
-            {" "}
-            <span className="critical">Critical:</span> {globaldata.critical}
-          </Card.Text>
-          <Card.Text>
-            <span className="active">Active Cases:</span> {globaldata.active}
-          </Card.Text>
-          <Card.Text>
-            <span className="new-cases"> New Cases:</span>{" "}
-            {globaldata.todayCases}
-          </Card.Text>
-          <Card.Text>
-            {" "}
-            <span className="new-deaths">New Deaths:</span>{" "}
-            {globaldata.todayDeaths}
-          </Card.Text>
+          <Card.Header style={{ fontSize: "25px" }}>Global Data</Card.Header>
+          <div style={{ fontSize: "20px" }}>
+            <Card.Text>
+              Total Cases: <span className="cases">{globaldata.cases}</span>
+            </Card.Text>
+            <Card.Text>
+              Recovered:{" "}
+              <span className="recovered">{globaldata.recovered}</span>{" "}
+            </Card.Text>
+            <Card.Text>
+              Deaths: <span className="deaths">{globaldata.deaths}</span>
+            </Card.Text>
+            <Card.Text>
+              {" "}
+              Critical: <span className="critical">{globaldata.critical}</span>
+            </Card.Text>
+            <Card.Text>
+              Active Cases: <span className="active"> {globaldata.active}</span>
+            </Card.Text>
+            <Card.Text>
+              New Cases:{" "}
+              <span className="new-cases">{globaldata.todayCases}</span>{" "}
+            </Card.Text>
+            <Card.Text>
+              {" "}
+              New Deaths:
+              <span className="new-deaths">{globaldata.todayDeaths}</span>
+            </Card.Text>
+          </div>
         </Card.Body>
-
         <Card.Footer>
           <Card.Header className="text-muted"> Last updated:</Card.Header>
           <Card.Text className="text-muted"> {lastupdated}</Card.Text>

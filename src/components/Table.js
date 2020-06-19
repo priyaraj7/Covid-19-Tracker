@@ -1,8 +1,12 @@
 import React from "react";
+import "./Table.css";
 import PropTypes from "prop-types";
-import { Table } from "react-bootstrap";
+import { StickyTable, Row as TableRow, Cell } from "react-sticky-table";
+// import { Row, Card, Col } from "react-bootstrap";
 
 const DataTable = ({ rows, searchTerm, columns, searchColumn }) => {
+  // let lastupdated = moment(globaldata.updated).startOf("hour").fromNow();
+
   const columnHeaders = [
     "Name",
     "Cases",
@@ -19,31 +23,29 @@ const DataTable = ({ rows, searchTerm, columns, searchColumn }) => {
       : rows.filter((item) =>
           item[searchColumn].toLowerCase().includes(searchTerm)
         );
+
   return (
     <>
-      <Table striped bordered hover responsive>
-        <thead>
-          <tr>
-            {columnHeaders.map((column, i) => (
-              <th key={i}>{column}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {filteredData.map((country, index) => (
-            <tr key={index}>
-              {columns.map((name) => (
-                <td>{country[name]}</td>
-              ))}
-            </tr>
+      <StickyTable>
+        <TableRow className="header" style={{}}>
+          {columnHeaders.map((column, i) => (
+            <Cell key={i}>{column}</Cell>
           ))}
-        </tbody>
-      </Table>{" "}
+        </TableRow>
+
+        {filteredData.map((country, index) => (
+          <TableRow key={index} className={index % 2 === 0 ? "odd" : "even"}>
+            {columns.map((name, i) => (
+              <Cell key={i}> {country[name]}</Cell>
+            ))}
+          </TableRow>
+        ))}
+      </StickyTable>
     </>
   );
 };
 
 DataTable.propTypes = {
-  rows: PropTypes.object,
+  rows: PropTypes.array,
 };
 export default DataTable;
