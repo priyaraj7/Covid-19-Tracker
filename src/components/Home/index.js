@@ -1,8 +1,8 @@
 import React from "react";
 import "./Home.css";
-import Sidebar from "./Sidebar";
-import DataTable from "./Table";
-import SearchForm from "./SearchForm";
+import Sidebar from "../Sidebar/Sidebar";
+import DataTable from "../Table";
+import SearchForm from "../SearchForm";
 import { Container } from "react-bootstrap";
 
 export default function HomePage({

@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
-import { select, geoMercator, geoPath, min, max, scaleLinear, event } from "d3";
+import "./Map.css";
+import { select, geoMercator, geoPath, max, event, color } from "d3";
+
 import useResizeObserver from "./useResizeObserver";
 
 function WorldMap({ data, countrydata }) {
@@ -7,6 +9,8 @@ function WorldMap({ data, countrydata }) {
   const wrappedRef = useRef();
   const dimension = useResizeObserver(wrappedRef);
   const [selectedCountry, setSelectedCountry] = useState(null);
+  const [tooltip, setToolTip] = useState(null);
+
   // combining worldMap data with Covid 19 API
   const mapApi = data.features.map((mapCountry) => {
     const countryCode = mapCountry.properties.iso_a3;
@@ -20,22 +24,26 @@ function WorldMap({ data, countrydata }) {
   // console.log(data.features);
 
   useEffect(() => {
+    // tooltip
+    let tooltip = select("body")
+      .append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
+    setToolTip(tooltip);
+  }, []);
+
+  useEffect(() => {
     const svg = select(svgRef.current);
 
-    const minInfection = min(mapApi, (feature) => {
-      if (!feature.properties.covid) return undefined;
-      return feature.properties.covid.active;
-    });
+    // const minInfection = min(mapApi, (feature) => {
+    //   if (!feature.properties.covid) return null;
+    //   return feature.properties.covid.active;
+    // });
     const maxInfection = max(mapApi, (feature) => {
-      if (!feature.properties.covid) return undefined;
+      if (!feature.properties.covid) return null;
       return feature.properties.covid.active;
     });
-    console.log(minInfection);
-    console.log(maxInfection);
 
-    const colorScale = scaleLinear()
-      .domain([minInfection, maxInfection])
-      .range(["#ffe6e6", "#FF0000"]);
     //use resize dimension
     //but fall back to getBoundingClientRect, if no dimension yet.
     const { width, height } =
@@ -50,14 +58,6 @@ function WorldMap({ data, countrydata }) {
     // transforms that into the d attribute of a path element
     const pathGenerator = geoPath().projection(projection);
 
-    // // tooltip
-    // var div = svg
-    //   .selectAll(".tooltip-country")
-    //   .data([selectedCountry])
-    //   .join("div")
-    //   .attr("class", "tooltip-country")
-    //   .style("opacity", 0);
-
     // render each country
     svg
       .selectAll(".country")
@@ -67,29 +67,47 @@ function WorldMap({ data, countrydata }) {
       .on("click", (feature) => {
         setSelectedCountry(selectedCountry === feature ? null : feature);
       })
-      // .on("mouseover", (d, i) => {
-      //   div
-      //     .select(".tooltip-country")
-      //     .transition()
-      //     .duration("50")
-      //     .attr("opacity", ".85");
-      //   div.transition().duration(50).style("opacity", 1);
-
-      //   div
-      //     .html("<div>Foo bar</div>")
-      //     .style("left", event.pageX + 10 + "px")
-      //     .style("top", event.pageY - 15 + "px");
-      // })
-      // .on("mouseout", (d, i) => {
-      //   select(this).transition().duration("50").attr("opacity", "1");
-      //   div.transition().duration("50").style("opacity", 0);
-      // })
+      .on("mousemove", function (d) {
+        tooltip
+          .style("left", event.pageX + 15 + "px")
+          .style("top", event.pageY - 28 + "px");
+      })
+      .on("mouseover", (d, i) => {
+        console.log(d);
+        const covid = d.properties.covid;
+        if (covid) {
+          tooltip.transition().duration(250).style("opacity", 1);
+          tooltip
+            .html(
+              `<div>
+          <h3>${covid.country}</h3>
+          <ul>
+          <li>Cases: ${covid.cases}</li>
+            <li>Active: ${covid.active}</li>
+            <li>Critical: ${covid.critical}</li>
+            <li>Death: ${covid.deaths}</li>
+          </ul>
+          </div>`
+            )
+            .style("left", event.pageX + 15 + "px")
+            .style("top", event.pageY - 28 + "px");
+        } else {
+          tooltip.transition().duration(250).style("opacity", 0);
+        }
+      })
+      .on("mouseout", function (d) {
+        tooltip.transition().duration(250).style("opacity", 0);
+      })
       .attr("class", "country")
-      .attr("fill", (feature) =>
-        colorScale(
-          (feature.properties.covid && feature.properties.covid.active) || 0
-        )
-      )
+      .attr("fill", (feature) => {
+        const activeCases =
+          (feature.properties.covid && feature.properties.covid.active) || 0;
+        const colorBucket = Math.log10(Math.max(activeCases, 1));
+        const c = color("red");
+        c.opacity = colorBucket / Math.log10(maxInfection);
+        // console.log(`country ${feature.properties.name} opacity, ${c.opacity}`);
+        return c;
+      })
       .attr("stroke", "black")
       .transition()
       .attr("d", (feature) => pathGenerator(feature));
@@ -107,7 +125,7 @@ function WorldMap({ data, countrydata }) {
       })
       .attr("x", 10)
       .attr("y", 25);
-  }, [data, mapApi, dimension, selectedCountry]);
+  }, [data, mapApi, dimension, selectedCountry, tooltip]);
 
   return (
     <div ref={wrappedRef} style={{ marginBottom: "2rem" }}>

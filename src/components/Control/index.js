@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
-import loadData from "./Api";
+import loadData from "../Api";
 import "./Control.css";
-import data from "./GeoChart.world.geo.json";
-import HomePage from "./Home";
-import WorldMap from "./World";
+import data from "../Map/GeoChart.world.geo.json";
+import HomePage from "../Home";
+import WorldMap from "../Map";
 
 export default function Control() {
   const [globaldata, setGlobaladata] = useState([]);
