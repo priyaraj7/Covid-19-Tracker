@@ -2,11 +2,8 @@ import React from "react";
 import "./Table.css";
 import PropTypes from "prop-types";
 import { StickyTable, Row as TableRow, Cell } from "react-sticky-table";
-// import { Row, Card, Col } from "react-bootstrap";
 
 const DataTable = ({ rows, searchTerm, columns, searchColumn }) => {
-  // let lastupdated = moment(globaldata.updated).startOf("hour").fromNow();
-
   const columnHeaders = [
     "Name",
     "Cases",

@@ -10,7 +10,7 @@ This tracker provides the number of confirmed cases and deaths from novel corona
 
 [Click here](https://priyaraj7.github.io/Covid-19-Tracker/#/) to see Live Server
 
-## User Case
+## Use Case
 
 - In home page user can track/see the details of COVID-19 infection.
 - User can search specific country and USA state to see the details of COVID-19 infection.
@@ -22,6 +22,31 @@ This tracker provides the number of confirmed cases and deaths from novel corona
 
 ![Component Diagram](https://raw.githubusercontent.com/priyaraj7/Covid-19-Tracker/master/component-diagram.png)
 
+## Minimum Viable Product
+
+- The project is to fetch the live data from the API.
+
+- Application parses API response and displays response data in the UI.
+
+- If there’s no access to the server, user will receive an error message.
+
+## In progress
+
+- Support saving user preference using [local-storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
+- Add unit test.
+- In future, I want to fetch more country data.
+
+## Technologies Used
+
+- APIs
+- React-hooks
+- D3.js
+- Axios
+- React Router
+- React Bootstrap
+- CSS
+- NPM
+
 ## Setup
 
 - Open the Terminal
@@ -30,20 +55,6 @@ This tracker provides the number of confirmed cases and deaths from novel corona
 - Install npm package `npm install`
 - In the project directory run `npm start`.
 - Open http://localhost:3000 to view it in the browser.
-
-## In progress
-
-- Support saving user preference using [local-storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
-
-## Technologies Used
-
-- APIs
-- React-hooks
-- D3.js
-- React Router
-- React Bootstrap
-- CSS
-- NPM
 
 ## Reference:
 

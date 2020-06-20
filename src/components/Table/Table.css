@@ -4,12 +4,6 @@
   background-color: #bfbfbf;
   font-size: 15px;
 }
-/* .odd {
-  background-color: #ffffff;
-}
-.even {
-  background-color: #efefef;
-} */
 
 .odd .sticky-table-cell {
   background-color: #ffffff;

@@ -3,7 +3,6 @@ svg {
   width: 100vw;
   height: 100vh;
   margin: 10px;
-  /* background-color: #efefef; */
 }
 svg .country:hover {
   stroke-width: 1px;

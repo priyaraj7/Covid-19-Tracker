@@ -20,8 +20,6 @@ function WorldMap({ data, countrydata }) {
     mapCountry.properties.covid = covid;
     return { ...mapCountry, properties: { ...mapCountry.properties, covid } };
   });
-  //console.log(mapApi);
-  // console.log(data.features);
 
   useEffect(() => {
     // tooltip
@@ -35,10 +33,6 @@ function WorldMap({ data, countrydata }) {
   useEffect(() => {
     const svg = select(svgRef.current);
 
-    // const minInfection = min(mapApi, (feature) => {
-    //   if (!feature.properties.covid) return null;
-    //   return feature.properties.covid.active;
-    // });
     const maxInfection = max(mapApi, (feature) => {
       if (!feature.properties.covid) return null;
       return feature.properties.covid.active;
@@ -73,7 +67,6 @@ function WorldMap({ data, countrydata }) {
           .style("top", event.pageY - 28 + "px");
       })
       .on("mouseover", (d, i) => {
-        console.log(d);
         const covid = d.properties.covid;
 
         if (covid) {
@@ -107,7 +100,6 @@ function WorldMap({ data, countrydata }) {
         const colorBucket = Math.log10(Math.max(activeCases, 1));
         const c = color("#FF0000");
         c.opacity = colorBucket / Math.log10(maxInfection);
-        // console.log(`country ${feature.properties.name} opacity, ${c.opacity}`);
         return c;
       })
       .attr("stroke", "black")
