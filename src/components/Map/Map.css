@@ -1,6 +1,23 @@
+svg {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  margin: 10px;
+  /* background-color: #efefef; */
+}
+svg .country:hover {
+  stroke-width: 1px;
+  cursor: pointer;
+}
+
 .tooltip {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 20px;
-  padding: 5px 0;
-  text-align: center;
+  padding: 5px 10px;
+  text-align: left;
+}
+
+.tooltip ul {
+  list-style: none;
+  padding: 10px;
 }

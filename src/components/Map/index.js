@@ -75,11 +75,13 @@ function WorldMap({ data, countrydata }) {
       .on("mouseover", (d, i) => {
         console.log(d);
         const covid = d.properties.covid;
+
         if (covid) {
           tooltip.transition().duration(250).style("opacity", 1);
           tooltip
             .html(
               `<div>
+              
           <h3>${covid.country}</h3>
           <ul>
           <li>Cases: ${covid.cases}</li>
@@ -103,7 +105,7 @@ function WorldMap({ data, countrydata }) {
         const activeCases =
           (feature.properties.covid && feature.properties.covid.active) || 0;
         const colorBucket = Math.log10(Math.max(activeCases, 1));
-        const c = color("red");
+        const c = color("#FF0000");
         c.opacity = colorBucket / Math.log10(maxInfection);
         // console.log(`country ${feature.properties.name} opacity, ${c.opacity}`);
         return c;
@@ -111,20 +113,6 @@ function WorldMap({ data, countrydata }) {
       .attr("stroke", "black")
       .transition()
       .attr("d", (feature) => pathGenerator(feature));
-
-    // render text
-    svg
-      .selectAll(".label")
-      .data([selectedCountry])
-      .join("text")
-      .attr("class", "label")
-      .text((feature) => {
-        if (feature && feature.properties && feature.properties.covid)
-          return `active cases: ${feature.properties.covid.active}`;
-        return "";
-      })
-      .attr("x", 10)
-      .attr("y", 25);
   }, [data, mapApi, dimension, selectedCountry, tooltip]);
 
   return (

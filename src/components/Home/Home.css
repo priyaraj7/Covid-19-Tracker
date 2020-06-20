@@ -4,18 +4,16 @@
 }
 h1 {
   text-align: center;
+  float: left;
 }
 .data {
   height: 440px;
   width: 100%;
   border-radius: 0.25rem;
   border: 1px solid rgba(0, 0, 0, 0.125);
-  /* padding: 30px; */
-  padding-top: 0;
-  overflow: auto;
+  /* overflow: auto; */
   float: left;
-  position: relative;
-  padding-bottom: 40px;
+  /* position: relative; */
   margin-bottom: 10px;
 }
 

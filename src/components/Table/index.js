@@ -21,7 +21,7 @@ const DataTable = ({ rows, searchTerm, columns, searchColumn }) => {
     searchTerm === ""
       ? rows
       : rows.filter((item) =>
-          item[searchColumn].toLowerCase().includes(searchTerm)
+          item[searchColumn].toLowerCase().includes(searchTerm.toLowerCase())
         );
 
   return (

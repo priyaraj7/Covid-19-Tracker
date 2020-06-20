@@ -4,7 +4,7 @@ import { Col, Form } from "react-bootstrap";
 const ReusableSearchForm = ({ setSearchText, searchText, placeholder }) => {
   return (
     <Form>
-      <Form.Row>
+      <Form.Row onSubmit={(ev) => ev.preventDefault()}>
         <div className="mb-2 ml-auto">
           <Form.Group as={Col}>
             <Form.Control

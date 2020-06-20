@@ -1,7 +1,6 @@
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { HashRouter as Router, Link } from "react-router-dom";
-import "./App.css";
 import Control from "./Control";
 import image from "../assets/covid.png";
 
@@ -32,7 +31,6 @@ const App = () => {
           <Nav.Link href="#/">Home</Nav.Link>
           <Nav.Link href="#/map">Map</Nav.Link>
         </Nav>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       </Navbar>
       <Control />
     </Router>

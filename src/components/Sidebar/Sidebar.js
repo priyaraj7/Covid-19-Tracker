@@ -41,8 +41,11 @@ const Sidebar = ({ globaldata }) => {
           </div>
         </Card.Body>
         <Card.Footer>
-          <Card.Header className="text-muted"> Last updated:</Card.Header>
-          <Card.Text className="text-muted"> {lastupdated}</Card.Text>
+          <Card.Header className="text-muted">
+            {" "}
+            Last updated: {lastupdated}
+          </Card.Header>
+          {/* <Card.Text className="text-muted"> {lastupdated}</Card.Text> */}
         </Card.Footer>
       </Card>
     </div>
