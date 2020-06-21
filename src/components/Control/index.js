@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import loadData from "./Api";
-import data from "./GeoChart.world.geo.json";
+import data from "./World.geo.json";
 import HomePage from "../Home";
 import WorldMap from "../Map";
 

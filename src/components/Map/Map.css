@@ -5,6 +5,7 @@ svg {
   margin: 10px;
 }
 svg .country:hover {
+  stroke: black;
   stroke-width: 1px;
   cursor: pointer;
 }

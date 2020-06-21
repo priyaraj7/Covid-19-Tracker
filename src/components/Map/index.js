@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import "./Map.css";
 import { select, geoMercator, geoPath, max, event, color } from "d3";
-
 import useResizeObserver from "./useResizeObserver";
 
 function WorldMap({ data, countrydata }) {
@@ -61,12 +60,12 @@ function WorldMap({ data, countrydata }) {
       .on("click", (feature) => {
         setSelectedCountry(selectedCountry === feature ? null : feature);
       })
-      .on("mousemove", function (d) {
+      .on("mousemove", () => {
         tooltip
           .style("left", event.pageX + 15 + "px")
           .style("top", event.pageY - 28 + "px");
       })
-      .on("mouseover", (d, i) => {
+      .on("mouseover", (d) => {
         const covid = d.properties.covid;
 
         if (covid) {
@@ -90,7 +89,7 @@ function WorldMap({ data, countrydata }) {
           tooltip.transition().duration(250).style("opacity", 0);
         }
       })
-      .on("mouseout", function (d) {
+      .on("mouseout", function () {
         tooltip.transition().duration(250).style("opacity", 0);
       })
       .attr("class", "country")
@@ -104,7 +103,10 @@ function WorldMap({ data, countrydata }) {
       })
       .attr("stroke", "black")
       .transition()
-      .attr("d", (feature) => pathGenerator(feature));
+      .attr("d", (feature) => {
+        const d = pathGenerator(feature);
+        return d;
+      });
   }, [data, mapApi, dimension, selectedCountry, tooltip]);
 
   return (

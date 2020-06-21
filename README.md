@@ -12,10 +12,10 @@ This tracker provides the number of confirmed cases and deaths from novel corona
 
 ## Use Case
 
-- In home page user can track/see the details of COVID-19 infection.
+- In home page, user can track/see the details of COVID-19 infection.
 - User can search specific country and USA state to see the details of COVID-19 infection.
 - User can navigate to the map page using navingation bar.
-- In map page user can see the zoomable choropleth world-map based on number of active-cases of COVID-19.
+- In map page, user can see the zoomable choropleth world-map based on number of active-cases of COVID-19.
 - If mouseover/hover the country, user can see the tooltip providing the data of COVID-19.
 
 ## Component diagram:
