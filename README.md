@@ -8,7 +8,7 @@
 
 This tracker provides the number of confirmed cases and deaths from novel coronavirus by country, the trend in confirmed case and death counts by country, and a global map showing which countries are infected.
 
-[Click here](https://priyaraj7.github.io/Covid-19-Tracker/#/) to see Live Server
+<!-- [Click here](https://priyaraj7.github.io/Covid-19-Tracker/#/) to see Live Server -->
 
 ## Use Case
 
